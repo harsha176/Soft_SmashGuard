@@ -1,0 +1,55 @@
+Dump of assembler code for function readString:
+/*Load the base pointer, stack pointer and push caller save registers*/
+   0x000000000040070a <+0>:	push   %rbp
+   0x000000000040070b <+1>:	mov    %rsp,%rbp
+   0x000000000040070e <+4>:	push   %r13
+   0x0000000000400710 <+6>:	push   %r12
+   0x0000000000400712 <+8>:	push   %rbx
+
+/*Local variable memory allocation*/
+   0x0000000000400713 <+9>:	sub    $0x8,%rsp
+   0x0000000000400717 <+13>:	mov    %rdi,%r13
+   0x000000000040071a <+16>:	mov    %rdx,-0x20(%rbp)
+/*[buffsize+R] instruction*/
+   0x000000000040071e <+20>:	add    $0x24,%esi
+   0x0000000000400721 <+23>:	movslq %esi,%rsi/*sign extension of Rfrom 32 to 64*/
+   0x0000000000400724 <+26>:	add    $0x1e,%rsi
+   0x0000000000400728 <+30>:	and    $0xfffffffffffffff0,%rsi
+   0x000000000040072c <+34>:	sub    %rsi,%rsp
+   0x000000000040072f <+37>:	lea    0xf(%rsp),%rax
+   0x0000000000400734 <+42>:	mov    %rax,%r12
+   0x0000000000400737 <+45>:	and    $0xfffffffffffffff0,%r12
+   0x000000000040073b <+49>:	mov    $0x0,%ebx
+   0x0000000000400740 <+54>:	mov    0x200679(%rip),%rdi        # 0x600dc0 <stdin@@GLIBC_2.2.5>/**Reading from standard input/
+   0x0000000000400747 <+61>:	callq  0x4005e0 <fgetc@plt>
+   0x000000000040074c <+66>:	mov    %eax,%edx
+   0x000000000040074e <+68>:	cmp    $0xffffffffffffffff,%eax  /*EOF comparison*/
+   0x0000000000400751 <+71>:	je     0x400764 <readString+90>
+   0x0000000000400753 <+73>:	cmp    $0xa,%eax                 /*NewLine Comparison*/
+   0x0000000000400756 <+76>:	je     0x400764 <readString+90>
+   0x0000000000400758 <+78>:	movslq %ebx,%rax
+   0x000000000040075b <+81>:	mov    %dl,(%r12,%rax,1)
+   0x000000000040075f <+85>:	add    $0x1,%ebx
+   0x0000000000400762 <+88>:	jmp    0x400740 <readString+54>/*Loop checking*/
+///*setting buf[i] to 0*/
+   0x0000000000400764 <+90>:	movslq %ebx,%rax
+   0x0000000000400767 <+93>:	movb   $0x0,(%r12,%rax,1)
+///*Copying to S*/
+   0x000000000040076c <+98>:	mov    $0x0,%edx
+   0x0000000000400771 <+103>:	movzbl (%r12,%rdx,1),%eax
+   0x0000000000400776 <+108>:	mov    %al,0x0(%r13,%rdx,1)
+   0x000000000040077b <+113>:	add    $0x1,%rdx
+   0x000000000040077f <+117>:	cmp    $0x24,%rdx
+   0x0000000000400783 <+121>:	jne    0x400771 <readString+103>
+   0x0000000000400785 <+123>:	mov    %r13,%rdi
+   0x0000000000400788 <+126>:	mov    $0x0,%eax
+   0x000000000040078d <+131>:	callq  *-0x20(%rbp)
+   0x0000000000400790 <+134>:	lea    -0x18(%rbp),%rsp
+///*Pop the arguments before leaving the function*/
+   0x0000000000400794 <+138>:	pop    %rbx
+   0x0000000000400795 <+139>:	pop    %r12
+   0x0000000000400797 <+141>:	pop    %r13
+///*Leaving the function*/
+   0x0000000000400799 <+143>:	leaveq 
+   0x000000000040079a <+144>:	retq   
+End of assembler dump.
